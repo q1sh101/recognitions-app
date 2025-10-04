@@ -59,6 +59,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Auto-reload browser on .erb/.rb/.html changes in development
+  gem "hotwire-livereload"
 end
 
 group :test do

@@ -40,7 +40,7 @@
 node_modules/
 /.vite/
 /public/vite/
-vite.config.*
+# vite.config.*
 
 # Dependency lockfiles (keep one if you standardize)
 package-lock.json

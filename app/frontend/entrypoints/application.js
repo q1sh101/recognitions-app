@@ -1,4 +1,2 @@
-import './styles.scss';
-import * as bootstrap from 'bootstrap';
-
-console.log('Vite application.js loaded', { bootstrap });
+import * as Turbo from "@hotwired/turbo"
+window.Turbo = Turbo
