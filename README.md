@@ -1,0 +1,1 @@
+# Recognitions (Rails 8 + Vite)
