@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="/favicon.ico?v=5" type="image/x-icon">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Vite: assets (styles + custom JS) -->
     <%= vite_client_tag %>
     <%= vite_stylesheet_tag 'styles.scss' %>
     <%= vite_javascript_tag 'application' %>
 
-    <%= turbo_include_tags %>
+    <!-- Rails: Turbo / Stimulus via importmap -->
+    <%= javascript_importmap_tags %>
 
 </head>
 

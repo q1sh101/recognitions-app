@@ -1,3 +1,14 @@
-@import "bootstrap/scss/bootstrap";
+// ============================================================================
+//  Project styles entrypoint (Vite bundled)
+//
+//  ⚡ NOTE:
+//  Styles are compiled and served via Vite for faster builds,
+//  modern asset caching, and hot-module reload (HMR) support.
+//  (Preferred over Rails' dartsass watcher for performance reasons.)
+// ============================================================================
 
-body { padding-top: 60px; }
+@import "@/styles/theme";
+
+body {
+    padding-top: 60px;
+}

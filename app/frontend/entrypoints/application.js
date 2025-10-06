@@ -1,2 +1,1 @@
-import * as Turbo from "@hotwired/turbo"
-window.Turbo = Turbo
+// Vite entrypoint — no JS needed (Bootstrap loaded via SCSS)

@@ -12,7 +12,11 @@ class RecognitionsController < ApplicationController
     @recognition = Recognition.new(recognition_params)
     @recognition.sender = current_user
     if @recognition.save
-      redirect_to root_path, notice: "Recognition sent"
+      @recognitions = Recognition.includes(:badge, :sender, :recipient).order(created_at: :desc)
+      @recognition = Recognition.new
+      @badges = Badge.order(:name)
+      @users = User.order(:name)
+      render :index
     else
       @recognitions = Recognition.includes(:badge, :sender, :recipient).order(created_at: :desc)
       @badges = Badge.order(:name)
