@@ -1,43 +1,90 @@
 <div class="row g-4">
-  <div class="col-lg-4">
-    <div class="card border-0 shadow-sm">
-      <div class="card-body">
-        <h2 class="h6 mb-3">Send Recognition</h2>
-        <%= form_with model: @recognition, url: recognitions_path, class: 'vstack gap-2', data: { turbo_frame: "recognitions" } do |f| %>
-          <div>
-            <label class="form-label small">Recipient</label>
-            <%= f.select :recipient_id, options_from_collection_for_select(@users.where.not(id: current_user.id), :id, :name), {prompt: 'Choose'}, class: 'form-select form-select-sm' %>
-          </div>
-          <div>
-            <label class="form-label small">Badge</label>
-            <%= f.select :badge_id, options_from_collection_for_select(@badges, :id, :name), {prompt: 'Choose'}, class: 'form-select form-select-sm' %>
-          </div>
-          <div>
-            <label class="form-label small">Message</label>
-            <%= f.text_area :message, rows: 3, class: 'form-control form-control-sm' %>
-          </div>
-          <div>
-            <%= f.submit 'Send', class: 'btn btn-primary btn-sm' %>
-          </div>
-        <% end %>
-      </div>
+    <!-- Left: Send Recognition Form -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-semibold mb-4">Send Recognition</h2>
+
+                <%= form_with model: @recognition, url: recognitions_path do |f| %>
+
+                <!-- Recipient Field -->
+                <div class="mb-3">
+                    <label class="form-label">Recipient</label>
+                    <%= f.select :recipient_id, 
+                options_from_collection_for_select(@users, :id, :name), 
+                { prompt: 'Select colleague' }, 
+                class: "form-select #{'is-invalid' if flash[:recipient_error]}" %>
+                    <% if flash[:recipient_error] %>
+                    <div class="invalid-feedback d-block"><%= flash[:recipient_error] %></div>
+                    <% end %>
+                </div>
+
+                <!-- Badge Field -->
+                <div class="mb-3">
+                    <label class="form-label">Badge</label>
+                    <%= f.select :badge_id, 
+                options_from_collection_for_select(@badges, :id, :name), 
+                { prompt: 'Choose recognition type' }, 
+                class: "form-select #{'is-invalid' if flash[:badge_error]}" %>
+                    <% if flash[:badge_error] %>
+                    <div class="invalid-feedback d-block"><%= flash[:badge_error] %></div>
+                    <% end %>
+                </div>
+
+                <!-- Message Field -->
+                <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <%= f.text_area :message, 
+                rows: 4, 
+                class: "form-control #{'is-invalid' if flash[:message_error]}", 
+                placeholder: "Share why they deserve recognition..." %>
+                    <% if flash[:message_error] %>
+                    <div class="invalid-feedback d-block"><%= flash[:message_error] %></div>
+                    <% end %>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <%= f.submit "Send Recognition", class: "btn btn-primary" %>
+                </div>
+
+                <% end %>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-lg-8">
-    <h2 class="h6 mb-3">Recent Recognitions</h2>
-    <%= turbo_frame_tag "recognitions" do %>
-    <ul class="list-group small">
-      <% @recognitions.each do |r| %>
-        <li class="list-group-item d-flex flex-column gap-1">
-          <div><strong><%= r.sender.name %></strong> recognized <strong><%= r.recipient.name %></strong> with <span class="badge text-bg-secondary"><%= r.badge.name %></span></div>
-          <div class="text-muted"><%= r.message %></div>
-          <div class="text-muted" style="font-size: 0.7rem;"><%= time_ago_in_words(r.created_at) %> ago</div>
-        </li>
-      <% end %>
-      <% if @recognitions.empty? %>
-        <li class="list-group-item text-muted">No recognitions yet.</li>
-      <% end %>
-    </ul>
-    <% end %>
-  </div>
+
+    <!-- Right: Recognitions Feed -->
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 fw-semibold mb-0">Recent Recognitions</h2>
+            <span class="badge bg-secondary"><%= @recognitions.count %></span>
+        </div>
+
+        <% if @recognitions.any? %>
+        <div class="vstack gap-3">
+            <% @recognitions.each do |r| %>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <strong><%= r.sender.name %></strong>
+                            <span class="text-muted">recognized</span>
+                            <strong><%= r.recipient.name %></strong>
+                        </div>
+                        <span class="badge bg-primary"><%= r.badge.name %></span>
+                    </div>
+                    <p class="text-muted mb-2"><%= r.message %></p>
+                    <small class="text-muted"><%= time_ago_in_words(r.created_at) %> ago</small>
+                </div>
+            </div>
+            <% end %>
+        </div>
+        <% else %>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <p class="text-muted mb-0">No recognitions yet. Be the first to recognize a colleague!</p>
+            </div>
+        </div>
+        <% end %>
+    </div>
 </div>
