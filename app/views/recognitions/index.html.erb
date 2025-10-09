@@ -1,7 +1,7 @@
 <div class="row g-4">
     <!-- Left: Send Recognition Form -->
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm">
+        <div class="card shadow-sm position-sticky top-84">
             <div class="card-body p-4">
                 <h2 class="h5 fw-semibold mb-4">Send Recognition</h2>
 
@@ -11,9 +11,9 @@
                 <div class="mb-3">
                     <label class="form-label">Recipient</label>
                     <%= f.select :recipient_id, 
-                options_from_collection_for_select(@users, :id, :name), 
-                { prompt: 'Select colleague' }, 
-                class: "form-select #{'is-invalid' if flash[:recipient_error]}" %>
+                        options_from_collection_for_select(@users, :id, :name), 
+                        { prompt: 'Select colleague' }, 
+                        class: "form-select #{'is-invalid' if flash[:recipient_error]}" %>
                     <% if flash[:recipient_error] %>
                     <div class="invalid-feedback d-block"><%= flash[:recipient_error] %></div>
                     <% end %>
@@ -23,9 +23,9 @@
                 <div class="mb-3">
                     <label class="form-label">Badge</label>
                     <%= f.select :badge_id, 
-                options_from_collection_for_select(@badges, :id, :name), 
-                { prompt: 'Choose recognition type' }, 
-                class: "form-select #{'is-invalid' if flash[:badge_error]}" %>
+                        options_from_collection_for_select(@badges, :id, :name), 
+                        { prompt: 'Choose recognition type' }, 
+                        class: "form-select #{'is-invalid' if flash[:badge_error]}" %>
                     <% if flash[:badge_error] %>
                     <div class="invalid-feedback d-block"><%= flash[:badge_error] %></div>
                     <% end %>
@@ -35,9 +35,9 @@
                 <div class="mb-3">
                     <label class="form-label">Message</label>
                     <%= f.text_area :message, 
-                rows: 4, 
-                class: "form-control #{'is-invalid' if flash[:message_error]}", 
-                placeholder: "Share why they deserve recognition..." %>
+                        rows: 4, 
+                        class: "form-control rounded-2 #{'is-invalid' if flash[:message_error]}", 
+                        placeholder: "Share why they deserve recognition..." %>
                     <% if flash[:message_error] %>
                     <div class="invalid-feedback d-block"><%= flash[:message_error] %></div>
                     <% end %>
@@ -61,26 +61,28 @@
         </div>
 
         <% if @recognitions.any? %>
-        <div class="vstack gap-3">
-            <% @recognitions.each do |r| %>
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                            <strong><%= r.sender.name %></strong>
-                            <span class="text-muted">recognized</span>
-                            <strong><%= r.recipient.name %></strong>
+            <div class="vstack gap-3 mb-5">
+                <% @recognitions.each do |r| %>
+                <div class="card shadow-sm">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start px-3 pe-md-2 py-2 border-bottom border-bottom-gray-400">
+                            <div>
+                                <strong><%= r.sender.name %></strong>
+                                <span class="text-muted">recognized</span>
+                                <strong><%= r.recipient.name %></strong>
+                            </div>
+                            <span class="badge rounded-pill <%= r.badge.color_class %>"><%= r.badge.name %></span>
                         </div>
-                        <span class="badge bg-primary"><%= r.badge.name %></span>
+                        <p class="text-muted mb-2 py-2 px-3 fs-6"><%= r.message %></p>
+                        <div class="d-flex ms-auto mb-2 me-2 text-muted px-2 border border-gray-300 rounded-pill">
+                            <small class="text-muted"><%= time_ago_in_words(r.created_at) %> ago</small>
+                        </div>
                     </div>
-                    <p class="text-muted mb-2"><%= r.message %></p>
-                    <small class="text-muted"><%= time_ago_in_words(r.created_at) %> ago</small>
                 </div>
-            </div>
             <% end %>
         </div>
         <% else %>
-        <div class="card border-0 shadow-sm">
+        <div class="card shadow-sm">
             <div class="card-body text-center py-5">
                 <p class="text-muted mb-0">No recognitions yet. Be the first to recognize a colleague!</p>
             </div>
