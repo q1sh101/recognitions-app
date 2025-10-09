@@ -1,6 +1,63 @@
-// ========================================
-// Main Theme Stylesheet
-// ========================================
+// =============================================================================
+// theme.scss — Design System Foundation
+// Enterprise-grade • Token-driven • Built for scale
+// =============================================================================
+// Purpose: Global entrypoint (minimal, runtime-ready)
+// Author: Giorgi Kishmaria (@q1sh101)
+// Import order (critical):
+//   A) GLOBAL: variables → maps → mixins  ← Sass vars must be global
+//   B) BASE:   utilities → root → runtime-bridge → base pieces
+//   C) COMPONENTS: only what you use
+// =============================================================================
 
-// Bootstrap core framework
-@import "bootstrap/scss/bootstrap";
+// ---------- A) GLOBAL ----------
+// Vars must be globally visible before Bootstrap maps/mixins/utilities.
+@import "variables";              // loads tokens + Bootstrap variable overrides
+@import "bootstrap/scss/maps";    // needs $theme-colors and other vars
+@import "bootstrap/scss/mixins";  // utilities/components API depend on this
+
+// ---------- B) BASE ----------
+// Custom utilities: imports default utilities → extends $utilities → generates API
+@import "utilities";
+
+// Bootstrap root (defines :root CSS vars). Runtime bridge must follow it.
+@import "bootstrap/scss/root";
+@import "runtime-bridge"; // runtime theming: :root --vars, data-theme, prefers-*
+
+// Lean Bootstrap base (only what you need)
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/transitions";
+
+// ---------- C) COMPONENTS ----------
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/close";
+
+@import "bootstrap/scss/helpers/position";
+
+// Optional (uncomment as needed to keep bundle small)
+// @import "bootstrap/scss/dropdown";
+// @import "bootstrap/scss/modal";
+// @import "bootstrap/scss/offcanvas";
+// @import "bootstrap/scss/progress";
+// @import "bootstrap/scss/tooltip";
+// @import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+// @import "bootstrap/scss/spinners";
+// @import "bootstrap/scss/pagination";
+// @import "bootstrap/scss/breadcrumb";
+// @import "bootstrap/scss/accordion";
+
+// ---------- D) OVERRIDES (optional, keep empty by default) ----------
+@import "common"; // "extraordinary only" tiny fixes (import LAST if used)

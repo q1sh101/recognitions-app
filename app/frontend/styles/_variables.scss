@@ -1,0 +1,252 @@
+// =============================================================================
+// _variables.scss
+// Purpose: Bootstrap variable overrides (maps tokens → Bootstrap semantics).
+// Import order contract:
+//   1) bootstrap/scss/functions
+//   2) ./tokens
+//   3) (our overrides: breakpoints/containers/flags/theme vars)
+//   4) bootstrap/scss/variables
+// Ownership: Bootstrap override layer (no utilities here). Emits only vars.
+// =============================================================================
+
+@import "bootstrap/scss/functions";
+@import "./tokens";
+
+// ----------------------------------------
+// Feature flags / Core theme (must come before Bootstrap variables)
+// ----------------------------------------
+$enable-dark-mode:          false;   // theming handled at runtime via _runtime-bridge.scss
+$enable-cssgrid:            true;    // enable CSS Grid utilities
+$enable-smooth-scroll:      true;
+$enable-reduced-motion:     true;    // honor prefers-reduced-motion
+$enable-validation-icons:   false;   // slimmer forms
+$enable-rfs:                true;    // responsive font sizes (Bootstrap RFS)
+
+// Base body colors from tokens (runtime can override via CSS vars)
+$body-bg:                   $color-body-bg;
+$body-color:                $color-body-text;
+
+// ----------------------------------------
+// Grid & Containers (override BEFORE Bootstrap variables import)
+// Maps are sourced from tokens (_tokens.scss)
+// ----------------------------------------
+$grid-breakpoints: (
+  xs: $bp-xs,
+  sm: $bp-sm,
+  md: $bp-md,
+  lg: $bp-lg,
+  xl: $bp-xl,
+  xxl: $bp-xxl
+);
+
+$container-max-widths: (
+  sm:  $container-sm,
+  md:  $container-md,
+  lg:  $container-lg,
+  xl:  $container-xl,
+  xxl: $container-xxl
+);
+
+// Gutters (Bootstrap uses single variable)
+$grid-gutter-width:         $gutter-x;
+$grid-row-columns:          12;
+$container-padding-x:       $space-16;
+
+// ----------------------------------------
+// Theme colors (semantic mapping)
+// Keep these as Sass colors for compile-time functions.
+// Runtime overrides happen via _runtime-bridge.scss (→ --bs-*).
+// ----------------------------------------
+$primary:                   $color-brand-primary;
+$secondary:                 $color-gray-700;
+$success:                   $color-success;
+$danger:                    $color-danger;
+$warning:                   $color-warning;
+$info:                      $color-info;
+$light:                     $color-gray-100;
+$dark:                      $color-brand-dark;
+
+// Import Bootstrap variables after our overrides
+@import "bootstrap/scss/variables";
+
+// Extend theme map with extra brand keys (utilities like .text-accent/.bg-accent)
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    "accent": $color-brand-accent,
+    "muted":  $color-gray-700
+  )
+);
+
+// ----------------------------------------
+// Typography (base + headings)
+// ----------------------------------------
+$font-family-sans-serif:    $font-family-sans;
+$font-family-base:          $font-family-sans;
+$font-size-base:            $font-size-base;        // 17px
+$font-weight-normal:        $font-weight-regular;
+$font-weight-bold:          $font-weight-semibold;
+$line-height-base:          $line-height-base;
+
+$headings-font-weight:      $font-weight-semibold;
+$headings-line-height:      1.2;
+
+// Fluid typography (opt-in toggle) — ENABLED by default for modern web
+$enable-fluid-typography:   true !default;
+
+@if $enable-fluid-typography {
+  $h1-font-size:            $font-size-fluid-xl;
+  $h2-font-size:            $font-size-fluid-lg;
+  $h3-font-size:            $font-size-fluid-base;
+  $h4-font-size:            $font-size-base * 1.5;   // ~25.5px
+  $h5-font-size:            $font-size-base * 1.25;  // ~21.25px
+  $h6-font-size:            $font-size-base;         // 17px
+} @else {
+  // Fixed heading sizes (derived from 17px base)
+  $h1-font-size:            $font-size-base * 2.5;   // ~42.5px
+  $h2-font-size:            $font-size-base * 2.0;   // ~34px
+  $h3-font-size:            $font-size-base * 1.75;  // ~29.75px
+  $h4-font-size:            $font-size-base * 1.5;   // ~25.5px
+  $h5-font-size:            $font-size-base * 1.25;  // ~21.25px
+  $h6-font-size:            $font-size-base;         // 17px
+}
+
+// ----------------------------------------
+// Spacing
+// Keep Bootstrap's $spacer at 8px for defaults,
+// plus separate 2px granular map for custom utilities.
+// ----------------------------------------
+$spacer:                    $space-8;
+
+$spacers-2step: (
+  2:  $space-2,   4:  $space-4,   6:  $space-6,   8:  $space-8,
+  10: $space-10,  12: $space-12,  14: $space-14,  16: $space-16,
+  18: $space-18,  20: $space-20,  22: $space-22,  24: $space-24,
+  28: $space-28,  32: $space-32,  36: $space-36,  40: $space-40,
+  44: $space-44,  48: $space-48,  56: $space-56,  64: $space-64,
+  72: $space-72,  80: $space-80,  88: $space-88
+);
+
+// Fluid spacing keys for utilities layer (opt-in)
+$spacers-fluid: (
+  "fluid-sm": $space-fluid-sm,
+  "fluid-md": $space-fluid-md,
+  "fluid-lg": $space-fluid-lg
+);
+
+// ----------------------------------------
+// Border Radius & Shadows
+// Sass values; runtime bridge can override --bs-border-radius* and shadows.
+// ----------------------------------------
+$border-radius:             $radius-md;
+$border-radius-sm:          $radius-sm;
+$border-radius-lg:          $radius-lg;
+$border-radius-pill:        $radius-pill;
+
+$box-shadow:                $shadow-sm;
+$box-shadow-sm:             $shadow-xs;
+$box-shadow-lg:             $shadow-lg;
+
+// Cards
+$card-box-shadow:           $shadow-elevated;  // layered depth by default
+
+// ----------------------------------------
+// Components — token-based sizing
+// ----------------------------------------
+$btn-padding-y:             $space-6;
+$btn-padding-x:             $space-10;
+$btn-font-weight:           500;
+$btn-border-radius:      $radius-pill;
+$btn-border-radius-sm:   $radius-pill;
+$btn-border-radius-lg:   $radius-pill;
+// Button focus ring
+$btn-focus-width:           $focus-ring-width;
+$btn-focus-box-shadow:      0 0 0 $focus-ring-width rgba($focus-ring-color, $focus-ring-opacity);
+
+// Inputs
+$input-padding-y:           $space-6;
+$input-padding-x:           $space-10;
+$input-border-radius:       $radius-pill;
+$input-border-color:        $color-gray-200;
+$input-placeholder-color:   $color-gray-600;
+
+// Input focus
+$input-focus-border-color:  $primary;
+$input-focus-box-shadow:    0 0 0 $focus-ring-width rgba($primary, $focus-ring-opacity);
+
+
+// ----------------------------------------
+// Form Controls Overrides
+// Purpose: unify input/select appearance and styling
+// ----------------------------------------
+
+// Make inputs & selects rounded-pill by default
+$input-border-radius: $radius-pill;
+$form-select-border-radius: $radius-pill;
+
+// Match select focus style to input (remove default blue)
+$form-select-focus-border-color: $input-focus-border-color;
+$form-select-focus-box-shadow: $input-focus-box-shadow;
+
+
+
+// Cards / Navbar
+$card-spacer-y:             $space-16;
+$card-spacer-x:             $space-16;
+$card-border-radius:        $radius-sm;
+$card-border-color:         $color-gray-200;
+$card-bg:                   $color-light;
+
+$navbar-padding-y:          $space-8;
+$navbar-padding-x:          $space-16;
+$navbar-bg:                 $color-light;
+// ----------------------------------------
+// Transitions
+// Use runtime duration/easing via CSS vars in runtime-bridge.
+// Sass variables remain valid if CSS vars are absent.
+// ----------------------------------------
+$transition-base:           all var(--bs-transition-duration, #{$duration-normal})
+                                var(--bs-transition-easing,   #{$easing-default});
+$transition-fade:           opacity var(--bs-transition-duration, #{$duration-normal})
+                                   var(--bs-transition-easing,   #{$easing-default});
+$transition-collapse:       height var(--bs-transition-duration, #{$duration-normal})
+                                   var(--bs-transition-easing,   #{$easing-default});
+$transition-transform:      transform var(--bs-transition-duration, #{$duration-normal})
+                                      var(--bs-transition-easing,   #{$easing-default});
+
+// ----------------------------------------
+// For example - Alerts — v5.3+ subtle tokens (optimized mix ratios)
+// ----------------------------------------
+$success-bg-subtle:         tint-color($success, 86%);
+$success-border-subtle:     tint-color($success, 62%);
+$success-text-emphasis:     shade-color($success, 40%);
+
+$danger-bg-subtle:          tint-color($danger, 86%);
+$danger-border-subtle:      tint-color($danger, 62%);
+$danger-text-emphasis:      shade-color($danger, 40%);
+
+$warning-bg-subtle:         tint-color($warning, 78%);
+$warning-border-subtle:     tint-color($warning, 54%);
+$warning-text-emphasis:     shade-color($warning, 45%);
+
+$info-bg-subtle:            tint-color($info, 82%);
+$info-border-subtle:        tint-color($info, 58%);
+$info-text-emphasis:        shade-color($info, 35%);
+
+// ----------------------------------------
+// Z-index layers (organized)
+// ----------------------------------------
+$zindex-dropdown:           1000;
+$zindex-sticky:             1020;
+$zindex-fixed:              1030;
+$zindex-modal-backdrop:     1040;
+$zindex-modal:              1050;
+$zindex-popover:            1060;
+$zindex-tooltip:            1070;
+
+// ----------------------------------------
+// Guidance
+// ----------------------------------------
+// Do: keep these as Sass values; rely on _runtime-bridge.scss to override --bs-* at runtime.
+// Do: add new tokens in _tokens.scss and map them here.
+// Don't: define $utilities or generate classes here (use utilities.scss).

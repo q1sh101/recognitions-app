@@ -1,0 +1,449 @@
+// =============================================================================
+// utilities.scss
+// Purpose: Extend Bootstrap utilities with 2px spacing & modern helpers.
+// Import order (critical):
+//   - theme.scss imports this AFTER bootstrap/scss/maps & mixins, BEFORE components.
+// File order:
+//   1) import bootstrap/scss/utilities (default $utilities map)
+//   2) map-merge our additions (vertical, readable blocks)
+//   3) import bootstrap/scss/utilities/api (generate classes)
+// =============================================================================
+
+@import "bootstrap/scss/utilities";
+
+// -----------------------------------------------------------------------------
+// Extend $utilities with additions (non-breaking)
+// -----------------------------------------------------------------------------
+$utilities: map-merge(
+  $utilities,
+  (
+
+    // =========================================================================
+    // 2px SPACING NAMESPACE (keeps Bootstrap .m/.p scale intact)
+    // =========================================================================
+    "margin-2step": (
+      property: margin,
+      class: m2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-x-2step": (
+      property: margin-right margin-left,
+      class: mx2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-y-2step": (
+      property: margin-top margin-bottom,
+      class: my2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-top-2step": (
+      property: margin-top,
+      class: mt2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-end-2step": (
+      property: margin-right,
+      class: me2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-bottom-2step": (
+      property: margin-bottom,
+      class: mb2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-start-2step": (
+      property: margin-left,
+      class: ms2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-2step": (
+      property: padding,
+      class: p2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-x-2step": (
+      property: padding-right padding-left,
+      class: px2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-y-2step": (
+      property: padding-top padding-bottom,
+      class: py2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-top-2step": (
+      property: padding-top,
+      class: pt2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-end-2step": (
+      property: padding-right,
+      class: pe2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-bottom-2step": (
+      property: padding-bottom,
+      class: pb2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-start-2step": (
+      property: padding-left,
+      class: ps2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    // Flex/Grid gap in 2px steps
+    "gap-2step": (
+      property: gap,
+      class: gap2,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    // Optional fluid spacing (token-based) — non-responsive to keep size tight
+    "padding-fluid": (
+      property: padding,
+      class: p-fluid,
+      values: $spacers-fluid,
+      responsive: false
+    ),
+
+    "margin-fluid": (
+      property: margin,
+      class: m-fluid,
+      values: $spacers-fluid,
+      responsive: false
+    ),
+
+    "gap-fluid": (
+      property: gap,
+      class: gap-fluid,
+      values: $spacers-fluid,
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // Z-INDEX (1..10) — compact, predictable stack helpers
+    // =========================================================================
+    "z-index-10": (
+      property: z-index,
+      class: z,
+      values: (1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // OVERFLOW (AXIS-SPECIFIC)
+    // =========================================================================
+    "overflow-x": (
+      property: overflow-x,
+      class: overflow-x,
+      values: (auto:auto, hidden:hidden, scroll:scroll, visible:visible),
+      responsive: true
+    ),
+
+    "overflow-y": (
+      property: overflow-y,
+      class: overflow-y,
+      values: (auto:auto, hidden:hidden, scroll:scroll, visible:visible),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // MOTION TUNING (DURATION & EASING)
+    // =========================================================================
+    "transition-duration": (
+      property: transition-duration,
+      class: dur,
+      values: (fast:$duration-fast, normal:$duration-normal, slow:$duration-slow),
+      responsive: false
+    ),
+
+    "transition-timing": (
+      property: transition-timing-function,
+      class: ease,
+      values: (default:$easing-default, spring:$easing-spring),
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // CONTENT-BASED SIZING
+    // =========================================================================
+    "width-fit": (
+      property: width,
+      class: w,
+      values: (fit:fit-content, min:min-content, max:max-content),
+      responsive: true
+    ),
+
+    "height-fit": (
+      property: height,
+      class: h,
+      values: (fit:fit-content, min:min-content, max:max-content),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // SQUARE SIZE (width == height) — avatars/icons/buttons
+    // =========================================================================
+    "square-size": (
+      property: width height,
+      class: sq,
+      values: (
+        16:$space-16,
+        20:$space-20,
+        24:$space-24,
+        32:$space-32,
+        40:$space-40,
+        48:$space-48,
+        56:$space-56,
+        64:$space-64
+      ),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // LOGICAL PROPERTIES (RTL/LTR agnostic)
+    // =========================================================================
+    "margin-block": (
+      property: margin-block,
+      class: mb-block,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "margin-inline": (
+      property: margin-inline,
+      class: mi,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-block": (
+      property: padding-block,
+      class: pb-block,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "padding-inline": (
+      property: padding-inline,
+      class: pi,
+      values: $spacers-2step,
+      responsive: true
+    ),
+
+    "inset": (
+      property: inset,
+      class: inset,
+      values: (0:0, auto:auto),
+      responsive: true
+    ),
+
+    "inset-block": (
+      property: inset-block,
+      class: inset-y,
+      values: (0:0, auto:auto),
+      responsive: true
+    ),
+
+    "inset-inline": (
+      property: inset-inline,
+      class: inset-x,
+      values: (0:0, auto:auto),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // CONTAINER QUERIES (OPT-IN; keep non-responsive)
+    // =========================================================================
+    "container-type": (
+      property: container-type,
+      class: container,
+      values: (inline:inline-size, block:block-size, normal:normal),
+      responsive: false
+    ),
+
+    "container-name": (
+      property: container-name,
+      class: container-name,
+      values: (card:card, sidebar:sidebar, main:main),
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // PERFORMANCE HINTS
+    // =========================================================================
+    "contain": (
+      property: contain,
+      class: contain,
+      values: (
+        layout:layout,
+        paint:paint,
+        size:size,
+        style:style,
+        strict:strict,
+        content:content
+      ),
+      responsive: false
+    ),
+
+    "will-change": (
+      property: will-change,
+      class: will-change,
+      values: (
+        auto:auto,
+        scroll:scroll-position,
+        contents:contents,
+        transform:transform,
+        opacity:opacity
+      ),
+      responsive: false
+    ),
+
+    "transform-gpu": (
+      property: transform,
+      class: gpu,
+      values: (on:translateZ(0), off:none),
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // ASPECT RATIO (quote values to avoid slash-div deprecation)
+    // =========================================================================
+    "aspect": (
+      property: aspect-ratio,
+      class: aspect,
+      values: (
+        square:   unquote("1 / 1"),
+        video:    unquote("16 / 9"),
+        photo:    unquote("4 / 3"),
+        wide:     unquote("21 / 9"),
+        portrait: unquote("3 / 4"),
+        auto:     auto
+      ),
+      responsive: true
+    ),
+
+
+    // =========================================================================
+    // SCROLL BEHAVIOR & SNAP (quote compound values)
+    // =========================================================================
+    "scroll-behavior": (
+      property: scroll-behavior,
+      class: scroll,
+      values: (auto:auto, smooth:smooth),
+      responsive: false
+    ),
+
+    "scroll-snap-type": (
+      property: scroll-snap-type,
+      class: snap,
+      values: (
+        x:     unquote("x mandatory"),
+        y:     unquote("y mandatory"),
+        both:  unquote("both mandatory"),
+        none:  none
+      ),
+      responsive: false
+    ),
+
+    "scroll-snap-align": (
+      property: scroll-snap-align,
+      class: snap-align,
+      values: (start:start, center:center, end:end),
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // BACKDROP FILTERS (glass effects)
+    // =========================================================================
+    "backdrop-blur": (
+      property: backdrop-filter,
+      class: backdrop-blur,
+      values: (
+        sm: blur(4px),
+        md: blur(8px),
+        lg: blur(16px),
+        xl: blur(24px)
+      ),
+      responsive: false
+    ),
+
+
+    // =========================================================================
+    // ISOLATION (stacking context control) & BLEND MODES
+    // =========================================================================
+    "isolation": (
+      property: isolation,
+      class: isolate,
+      values: (isolate:isolate, auto:auto),
+      responsive: false
+    ),
+
+    "mix-blend": (
+      property: mix-blend-mode,
+      class: blend,
+      values: (
+        normal:   normal,
+        multiply: multiply,
+        screen:   screen,
+        overlay:  overlay,
+        darken:   darken,
+        lighten:  lighten
+      ),
+      responsive: false
+    )
+
+  )
+);
+
+// -----------------------------------------------------------------------------
+// Generate all utilities
+// -----------------------------------------------------------------------------
+@import "bootstrap/scss/utilities/api";
+
+/* Usage examples:
+   .px2-14 .md:py2-20 .gap2-12 .z-10 .overflow-x-scroll .dur-fast .ease-spring
+   .w-fit .h-max .sq-40 .mi-16 .pb-block-12 .inset-x-auto .aspect-video
+   .snap .snap-align-center .scroll-smooth .backdrop-blur-md .gpu-on .contain-content
+*/
+
+

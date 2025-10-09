@@ -1,0 +1,150 @@
+// =============================================================================
+// _tokens.scss
+// Purpose: Design Tokens (foundation) — single source of truth.
+// Import order: standalone; NO Bootstrap deps; imported by _variables.scss.
+// Ownership: Design System (foundation layer). Emits NO CSS.
+// =============================================================================
+
+// ----------------------------------------
+// Spacing — 2px step scale (REM-based)
+// Rationale: precise density with consistent rhythm (1rem = 16px).
+// ----------------------------------------
+$space-0:  0;
+$space-2:  0.125rem;  // 2px
+$space-4:  0.25rem;   // 4px
+$space-6:  0.375rem;  // 6px
+$space-8:  0.5rem;    // 8px
+$space-10: 0.625rem;  // 10px
+$space-12: 0.75rem;   // 12px
+$space-14: 0.875rem;  // 14px
+$space-16: 1rem;      // 16px (base unit)
+$space-18: 1.125rem;  // 18px
+$space-20: 1.25rem;   // 20px
+$space-22: 1.375rem;  // 22px
+$space-24: 1.5rem;    // 24px
+$space-28: 1.75rem;   // 28px
+$space-32: 2rem;      // 32px
+$space-36: 2.25rem;   // 36px
+$space-40: 2.5rem;    // 40px
+$space-44: 2.75rem;   // 44px
+$space-48: 3rem;      // 48px
+$space-56: 3.5rem;    // 56px
+$space-64: 4rem;      // 64px
+$space-72: 4.5rem;    // 72px
+$space-80: 5rem;      // 80px
+$space-88: 5.5rem;    // 88px
+
+// Optional fluid spacing tokens (opt-in via utilities/components)
+$space-fluid-sm: clamp(0.5rem, 1vw, 1rem);
+$space-fluid-md: clamp(1rem, 2vw, 2rem);
+$space-fluid-lg: clamp(2rem, 4vw, 4rem);
+
+// ----------------------------------------
+// Colors — Brand & Semantic
+// Rationale: brand identity kept separate from semantic feedback colors.
+// ----------------------------------------
+$color-brand-primary:   #0B63B7;
+$color-brand-dark:      #073A73;
+$color-brand-accent:    #FFC30B;
+
+$color-success:         #22c55e;  // semantic green
+$color-danger:          #e11d48;  // semantic red
+$color-warning:         $color-brand-accent;  // semantic yellow
+$color-info:            #0ea5e9;  // semantic info blue
+$color-light:           #fdfbf9;
+
+$color-gray-100:        #F5F7FA;
+$color-gray-200:        #E7EAF0;
+$color-gray-300:        #D9DEE7;
+$color-gray-400:        #C7CFDB;
+$color-gray-500:        #A9B4C4;
+$color-gray-600:        #7B8798;
+$color-gray-700:        #3B4756;  // tuned for WCAG AA contrast
+$color-gray-800:        #1F2731;
+$color-gray-900:        #0F1720;
+
+$color-body-bg:         #faf9f5;
+$color-body-text:       $color-gray-900;
+
+// ----------------------------------------
+// Typography
+// Rationale: readable base (17px), strong hierarchy; fluid tokens opt-in.
+// ----------------------------------------
+$font-family-sans:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                        "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+$font-size-base:        1.0625rem;  // 17px (optimized for readability)
+$font-weight-regular:   400;
+$font-weight-semibold:  600;
+$line-height-base:      1.6;
+
+// Fluid typography tokens (use selectively in components)
+$font-size-fluid-base:  clamp(1rem, 0.925rem + 0.35vw, 1.125rem);
+$font-size-fluid-lg:    clamp(1.5rem, 1.25rem + 1vw, 2.5rem);
+$font-size-fluid-xl:    clamp(2rem, 1.5rem + 2vw, 4rem);
+
+// ----------------------------------------
+// Focus Ring (accessibility-first)
+// ----------------------------------------
+$focus-ring-width:      0.25rem;
+$focus-ring-opacity:    0.25;
+$focus-ring-color:      $color-brand-primary;
+
+// ----------------------------------------
+// Border Radius
+// ----------------------------------------
+$radius-sm:   0.25rem;
+$radius-md:   0.5rem;
+$radius-lg:   0.75rem;
+$radius-pill: 50rem;
+
+// ----------------------------------------
+// Shadows
+// Rationale: lightweight set + layered option for depth when needed.
+// ----------------------------------------
+$shadow-xs:       0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
+$shadow-sm:       0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+$shadow-md:       0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+$shadow-lg:       0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$shadow-elevated: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+// ----------------------------------------
+// Motion
+// Rationale: consistent timing + easing palette.
+// ----------------------------------------
+$duration-fast:    150ms;
+$duration-normal:  300ms;
+$duration-slow:    500ms;
+
+$easing-default:   cubic-bezier(0.25, 0.1, 0.25, 1);
+$easing-spring:    cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+// ----------------------------------------
+// Grid Tokens (Breakpoints / Containers / Gutters)
+// Rationale: tokens only; Bootstrap maps defined in _variables.scss.
+// ----------------------------------------
+
+// Breakpoints
+$bp-xs:  0;        // alias (Bootstrap map uses xs: 0)
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  992px;    // used by markup (e.g., col-lg-*)
+$bp-xl:  1200px;
+$bp-xxl: 1400px;
+
+// Container max-widths (paired with breakpoints)
+$container-sm:  540px;
+$container-md:  720px;
+$container-lg:  960px;
+$container-xl:  1140px;
+$container-xxl: 1320px;
+
+// Gutters (use spacing tokens for consistency)
+$gutter-x: $space-24;
+$gutter-y: $space-24;
+
+// ----------------------------------------
+// Usage guidance (non-enforcing)
+// ----------------------------------------
+// Do: add/extend tokens here (e.g., $space-50) and consume via variables/utilities.
+// Don't: emit CSS from tokens file; keep runtime overrides in separate layer.

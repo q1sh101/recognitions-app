@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top border-bottom px-3">
+  <a class="navbar-brand fw-semibold" href="/">
+<h1 class="h5 fw-semibold mb-0 text-body-emphasis">Recognitions</h1>
+  </a>
+  
+  <div class="ms-auto d-flex gap-2 align-items-center">
+    <!-- Theme Switcher -->
+    <button 
+      type="button"
+      data-controller="theme"
+      data-action="click->theme#toggle"
+      class="btn btn-link p-0 border-0"
+      aria-label="Toggle theme"
+      style="width: 24px; height: 24px;"
+    >
+      <!-- Moon icon (visible in light mode → switch to dark) -->
+      <svg  
+        data-theme-visibility="dark"
+        width="20" 
+        height="20" 
+        fill="currentColor" 
+        viewBox="0 0 24 24"
+       > 
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.39703 11.6315C3.39703 16.602 7.42647 20.6315 12.397 20.6315C15.6858 20.6315 18.5656 18.8664 20.1358 16.23C16.7285 17.3289 12.6922 16.7548 9.98282 14.0455C7.25201 11.3146 6.72603 7.28415 7.86703 3.89293C5.20697 5.47927 3.39703 8.38932 3.39703 11.6315ZM21.187 13.5851C22.0125 13.1021 23.255 13.6488 23 14.5706C21.7144 19.2187 17.4543 22.6315 12.397 22.6315C6.3219 22.6315 1.39703 17.7066 1.39703 11.6315C1.39703 6.58874 4.93533 2.25845 9.61528 0.999986C10.5393 0.751502 11.0645 1.99378 10.5641 2.80935C8.70026 5.84656 8.83194 10.0661 11.397 12.6312C13.9319 15.1662 18.1365 15.3702 21.187 13.5851Z" />
+     </svg>
+     
+       <!-- Sun icon (visible in dark mode → switch to light) -->
+      <svg  
+        data-theme-visibility="light"
+        width="20" 
+        height="20" 
+        fill="currentColor" 
+        viewBox="0 0 24 24">
+        <path d="M16,12a4,4,0,1,1-4-4A4,4,0,0,1,16,12Zm-3,9V20a1,1,0,0,0-2,0v1a1,1,0,0,0,2,0Zm6.07-1.93a1,1,0,0,0,0-1.41L18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0Zm-12.73,0,.71-.71A1,1,0,0,0,5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0ZM22,12a1,1,0,0,0-1-1H20a1,1,0,0,0,0,2h1A1,1,0,0,0,22,12ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12ZM18.36,7.05l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41,1,1,0,0,0,.71.29A1,1,0,0,0,18.36,7.05Zm-11.31,0a1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34l.71.71a1,1,0,0,0,.7.29A1,1,0,0,0,7.05,7.05Zm6-3V3a1,1,0,0,0-2,0V4a1,1,0,0,0,2,0Z"/></svg>
+
+    </button>
+
+    <% if logged_in? %>
+      <span class="small text-muted">Hi, <%= current_user.name %></span>
+      <%= button_to 'Logout', logout_path, method: :delete, class: 'btn btn-outline-secondary btn-sm px-3' %>
+    <% else %>
+      <% unless controller_name == 'sessions' %>
+        <%= link_to 'Login', login_path, class: 'btn btn-primary btn-sm px-3' %>
+      <% end %>
+    <% end %>
+  </div>
+</nav>
