@@ -23,7 +23,7 @@ $enable-validation-icons:   false;   // slimmer forms
 $enable-rfs:                true;    // responsive font sizes (Bootstrap RFS)
 
 // Base body colors from tokens (runtime can override via CSS vars)
-$body-bg:                   $color-body-bg;
+$body-bg:                   $color-light;
 $body-color:                $color-body-text;
 
 // ----------------------------------------
@@ -154,7 +154,7 @@ $card-box-shadow:           $shadow-elevated;  // layered depth by default
 // Components — token-based sizing
 // ----------------------------------------
 $btn-padding-y:             $space-6;
-$btn-padding-x:             $space-10;
+$btn-padding-x:             $space-14;
 $btn-font-weight:           500;
 $btn-border-radius:      $radius-pill;
 $btn-border-radius-sm:   $radius-pill;
@@ -165,9 +165,8 @@ $btn-focus-box-shadow:      0 0 0 $focus-ring-width rgba($focus-ring-color, $foc
 
 // Inputs
 $input-padding-y:           $space-6;
-$input-padding-x:           $space-10;
+$input-padding-x:           $space-14;
 $input-border-radius:       $radius-pill;
-$input-border-color:        $color-gray-200;
 $input-placeholder-color:   $color-gray-600;
 
 // Input focus
@@ -187,8 +186,6 @@ $form-select-border-radius: $radius-pill;
 // Match select focus style to input (remove default blue)
 $form-select-focus-border-color: $input-focus-border-color;
 $form-select-focus-box-shadow: $input-focus-box-shadow;
-
-
 
 // Cards / Navbar
 $card-spacer-y:             $space-16;
@@ -243,6 +240,12 @@ $zindex-modal-backdrop:     1040;
 $zindex-modal:              1050;
 $zindex-popover:            1060;
 $zindex-tooltip:            1070;
+
+// ----------------------------------------
+// Paginations
+// ----------------------------------------
+$pagination-focus-box-shadow: none;
+
 
 // ----------------------------------------
 // Guidance

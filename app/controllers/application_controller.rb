@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+
+  # Enable Pagy pagination methods in controllers
+  include Pagy::Backend
+
   allow_browser versions: :modern
 
   helper_method :current_user, :logged_in?
