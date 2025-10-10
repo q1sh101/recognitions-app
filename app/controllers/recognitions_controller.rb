@@ -2,7 +2,17 @@ class RecognitionsController < ApplicationController
   before_action :require_login
 
   def index
-    @recognitions = Recognition.includes(:badge, :sender, :recipient).order(created_at: :desc)
+    # Base scope kept in a variable (stable with preload for pagination)
+    scope = Recognition.preload(:badge, :sender, :recipient).order(created_at: :desc)
+
+    # Pagy object (deterministic: count/page/limit computed explicitly)
+    scope = Recognition.preload(:badge, :sender, :recipient).order(created_at: :desc)
+    page  = Integer(params[:page], exception: false)
+    @pagy, @recognitions = pagy(scope, limit: 5, page: page)
+
+    # Paginate recognitions (apply offset/limit explicitly for robustness)
+    @recognitions = scope.offset(@pagy.offset).limit(@pagy.limit)
+
     @recognition = Recognition.new
     @badges = Badge.order(:name)
     @users = User.where.not(id: current_user.id).order(:name)
@@ -48,7 +58,11 @@ class RecognitionsController < ApplicationController
   end
 
   def load_data
-    @recognitions = Recognition.includes(:badge, :sender, :recipient).order(created_at: :desc)
+    # Same pagination when re-rendering (validation errors, etc.)
+    scope = Recognition.preload(:badge, :sender, :recipient).order(created_at: :desc)
+    @pagy = Pagy.new(count: scope.count, page: params[:page], limit: 5)
+    @recognitions = scope.offset(@pagy.offset).limit(@pagy.limit)
+
     @recognition ||= Recognition.new
     @badges = Badge.order(:name)
     @users = User.where.not(id: current_user.id).order(:name)

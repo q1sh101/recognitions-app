@@ -25,6 +25,9 @@ gem "bcrypt", "~> 3.1"
 # Vite bundler for modern JS/CSS (will replace importmap+stimulus usage for this exercise)
 gem "vite_rails"
 
+# Pagination (server-side, Bootstrap-friendly)
+gem "pagy"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

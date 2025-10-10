@@ -1,8 +1,8 @@
 // =============================================================================
 // _runtime-bridge.scss
 // Purpose: Runtime theming via CSS variables (Bootstrap 5.3+ optimized).
-// Strategy: Leverage Bootstrap's built-in color mode + custom design tokens.
 // Author: Giorgi Kishmaria (@q1sh101)
+// Strategy: Leverage Bootstrap's built-in color mode + custom design tokens.
 // =============================================================================
 
 /* 
@@ -35,9 +35,11 @@
   --app-danger:          #{$color-danger};
   --app-warning:         #{$color-brand-accent};
   --app-info:            #{$color-info};
+  --app-light:           #{$color-light};
+  --app-body:             #{$color-body-bg};
 
   /* Bootstrap core overrides (light mode) */
-  --bs-body-bg:          #ffffff;
+  --bs-body-bg:          var(--app-body);
   --bs-body-color:       var(--app-gray-900);
   --bs-border-color:     var(--app-gray-200);
 
@@ -128,8 +130,8 @@
    CARDS & CONTAINERS
    ------------------------------------------------------------------------- */
   .card {
-    --bs-card-bg: var(--app-gray-800);
-    --bs-card-border-color: var(--app-gray-900);
+    --bs-card-bg:           transparent;
+    --bs-card-border-color: var(--app-gray-700);
   }
 
   /* -------------------------------------------------------------------------
@@ -137,7 +139,9 @@
      ------------------------------------------------------------------------- */
   --bs-form-control-bg:        var(--app-gray-800);
   --bs-form-control-color:     var(--app-gray-100);
+  --bs-border-color:           var(--app-gray-700);
   --bs-form-control-border-color: var(--app-gray-700);
+  --bs-border-color:           var(--app-gray-700);
 
   /* -------------------------------------------------------------------------
      TOASTS
@@ -190,8 +194,8 @@
       --bs-btn-hover-border-color: var(--app-gray-500);
     }
     .card {
-      --bs-card-bg:           var(--app-gray-800);
-      --bs-card-border-color: var(--app-gray-900);
+      --bs-card-bg:           transparent;
+      --bs-card-border-color: var(--app-gray-700);
     }
   }
 }
